@@ -44,7 +44,7 @@ require_once 'numberToLetter.php';
 /**
  *	Class to manage PDF invoice template sponge
  */
-class pdf_normale extends ModelePDFFactures
+class pdf_particulier extends ModelePDFFactures
 {
 	/**
 	 * @var DoliDB Database handler
@@ -132,7 +132,7 @@ class pdf_normale extends ModelePDFFactures
 		$langs->loadLangs(array("main", "bills"));
 
 		$this->db = $db;
-		$this->name = "normale";
+		$this->name = "particulier";
 		$this->description = $langs->trans('PDFSpongeDescription');
 		$this->update_main_doc_field = 1; // Save the name of generated file as the main doc when generating a doc with this template
 
@@ -540,6 +540,7 @@ class pdf_normale extends ModelePDFFactures
 
 				// Displays notes. Here we are still on code eecuted only for the first page.
 				$notetoshow = empty($object->note_public) ? '' : $object->note_public;
+				$notetoshow = '';
 				if (getDolGlobalString('MAIN_ADD_SALE_REP_SIGNATURE_IN_NOTE')) {
 					// Get first sale rep
 					if (is_object($object->thirdparty)) {
@@ -1932,7 +1933,6 @@ class pdf_normale extends ModelePDFFactures
 
 					$pdf->MultiCell(190, $tab2_hl,  " Arrêté la présent facture à la somme de : ".strtoupper($keidy)." F CFA", 'R', 1);
 				}
- 				
 				$pdf->SetXY(10, $tab2_top+30 + $tab2_hl * $index);
 				$pdf->MultiCell(30, $tab2_hl, " Pour Acquit", 'R', 1);
 				$pdf->SetXY($col2x, $tab2_top+30 + $tab2_hl * $index);
@@ -2453,6 +2453,8 @@ class pdf_normale extends ModelePDFFactures
 			// 	$pdf->Rect($posx-80, $posy+20, $widthrecbox, 20);
 			// }
 			
+			$notetoshow = empty($object->note_public) ? '' : $object->note_public;
+
 			if (!getDolGlobalString('MAIN_PDF_NO_RECIPENT_FRAME')) {
 				$pdf->SetTextColor(0, 0, 0);
 				$pdf->SetFont('', '', $default_font_size - 2);
@@ -2466,7 +2468,7 @@ class pdf_normale extends ModelePDFFactures
 			$pdf->SetXY(22, $posy+17);
 			$pdf->SetFont('', 'B', $default_font_size);
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			$pdf->MultiCell($widthrecbox - 2, 2, "Client : ".$carac_client_name, 0, $ltrdirection);
+			$pdf->MultiCell($widthrecbox - 2, 2, "Client : ".$notetoshow, 0, $ltrdirection);
 
 			$posy = $pdf->getY();
 
@@ -2474,7 +2476,7 @@ class pdf_normale extends ModelePDFFactures
 			$pdf->SetFont('', 'B', $default_font_size - 1);
 			$pdf->SetXY(22 , $posy);
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			$pdf->MultiCell($widthrecbox - 2, 4, "Adresse : " .$carac_client, 0, $ltrdirection);
+			// $pdf->MultiCell($widthrecbox - 2, 4, "Adresse : " .$carac_client, 0, $ltrdirection);
 
 			// Show shipping address
 			if (getDolGlobalInt('INVOICE_SHOW_SHIPPING_ADDRESS')) {
@@ -2600,7 +2602,7 @@ class pdf_normale extends ModelePDFFactures
 			),
 			'content' => array(
 				'align' => 'C',
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+				'padding' => array(1, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 		);
 
@@ -2615,11 +2617,10 @@ class pdf_normale extends ModelePDFFactures
 				// 'textkey' => 'yourLangKey', // if there is no label, yourLangKey will be translated to replace label
 				// 'label' => ' ', // the final label
 				'padding' => array(0.5, 0.5, 0.5, 0.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
-				
 			),
 			'content' => array(
 				'align' => 'L',
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+				'padding' => array(1, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 		);
 
@@ -2652,10 +2653,6 @@ class pdf_normale extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'VAT'
 			),
-			'content' => array(
-				
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
-			),
 			'border-left' => true, // add left line separator
 		);
 
@@ -2670,10 +2667,6 @@ class pdf_normale extends ModelePDFFactures
 			'status' => true,
 			'title' => array(
 				'textkey' => 'PriceUHT'
-			),
-			'content' => array(
-				
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);
@@ -2696,10 +2689,6 @@ class pdf_normale extends ModelePDFFactures
 			'status' => true,
 			'title' => array(
 				'textkey' => 'Qty'
-			),
-			'content' => array(
-				
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);
@@ -2727,10 +2716,6 @@ class pdf_normale extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'Unit'
 			),
-			'content' => array(
-			
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
-			),
 			'border-left' => true, // add left line separator
 		);
 		if (getDolGlobalInt('PRODUCT_USE_UNITS')) {
@@ -2745,10 +2730,6 @@ class pdf_normale extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'ReductionShort'
 			),
-			'content' => array(
-				
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
-			),
 			'border-left' => true, // add left line separator
 		);
 		if ($this->atleastonediscount) {
@@ -2762,10 +2743,6 @@ class pdf_normale extends ModelePDFFactures
 			'status' => !getDolGlobalString('PDF_PROPAL_HIDE_PRICE_EXCL_TAX') ? true : false,
 			'title' => array(
 				'textkey' => 'TotalHTShort'
-			),
-			'content' => array(
-				
-				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);

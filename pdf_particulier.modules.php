@@ -2602,7 +2602,7 @@ class pdf_particulier extends ModelePDFFactures
 			),
 			'content' => array(
 				'align' => 'C',
-				'padding' => array(1, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 		);
 
@@ -2617,10 +2617,11 @@ class pdf_particulier extends ModelePDFFactures
 				// 'textkey' => 'yourLangKey', // if there is no label, yourLangKey will be translated to replace label
 				// 'label' => ' ', // the final label
 				'padding' => array(0.5, 0.5, 0.5, 0.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+				
 			),
 			'content' => array(
 				'align' => 'L',
-				'padding' => array(1, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 		);
 
@@ -2653,6 +2654,10 @@ class pdf_particulier extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'VAT'
 			),
+			'content' => array(
+				
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+			),
 			'border-left' => true, // add left line separator
 		);
 
@@ -2667,6 +2672,10 @@ class pdf_particulier extends ModelePDFFactures
 			'status' => true,
 			'title' => array(
 				'textkey' => 'PriceUHT'
+			),
+			'content' => array(
+				
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);
@@ -2689,6 +2698,10 @@ class pdf_particulier extends ModelePDFFactures
 			'status' => true,
 			'title' => array(
 				'textkey' => 'Qty'
+			),
+			'content' => array(
+				
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);
@@ -2716,6 +2729,10 @@ class pdf_particulier extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'Unit'
 			),
+			'content' => array(
+			
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+			),
 			'border-left' => true, // add left line separator
 		);
 		if (getDolGlobalInt('PRODUCT_USE_UNITS')) {
@@ -2730,6 +2747,10 @@ class pdf_particulier extends ModelePDFFactures
 			'title' => array(
 				'textkey' => 'ReductionShort'
 			),
+			'content' => array(
+				
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
+			),
 			'border-left' => true, // add left line separator
 		);
 		if ($this->atleastonediscount) {
@@ -2743,6 +2764,10 @@ class pdf_particulier extends ModelePDFFactures
 			'status' => !getDolGlobalString('PDF_PROPAL_HIDE_PRICE_EXCL_TAX') ? true : false,
 			'title' => array(
 				'textkey' => 'TotalHTShort'
+			),
+			'content' => array(
+				
+				'padding' => array(3, 0.5, 1, 1.5), // Like css 0 => top , 1 => right, 2 => bottom, 3 => left
 			),
 			'border-left' => true, // add left line separator
 		);
