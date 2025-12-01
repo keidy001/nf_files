@@ -1,0 +1,60 @@
+@media print {
+body {
+background: white !important;
+}
+
+
+.no-print {
+display: none !important;
+}
+
+
+.card, .card-header {
+box-shadow: none !important;
+border: none !important;
+}
+
+
+/* Style tableau impression type Excel */
+.modern-table {
+border-collapse: collapse !important;
+width: 100% !important;
+}
+
+
+.modern-table th, .modern-table td {
+font-size: 12px !important;
+padding: 5px !important;
+border: 1px solid #000 !important;
+color: #000 !important;
+}
+
+
+.modern-table thead th {
+background: #f1f1f1 !important;
+font-weight: bold !important;
+}
+
+
+.modern-table tbody tr:hover {
+background: transparent !important;
+}
+
+
+/* Forcer le tableau à ne pas être coupé entre pages */
+tr {
+page-break-inside: avoid;
+}
+
+
+/* ✅ Empêche le retour à la ligne (NO WRAP) */
+.modern-table th,
+.modern-table td,
+.no-wrap {
+white-space: nowrap !important;
+}
+
+  @page {
+      size: A4 landscape;
+    }
+}
